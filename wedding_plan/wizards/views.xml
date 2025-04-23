@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="sending_wedding_invitation_view_form" model="ir.ui.view">
+            <field name="name">sending.wedding.invitation.view.form</field>
+            <field name="model">sending.wedding.invitation</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="template_id"/>
+                        </group>
+                        <field name="content" nolabel='1'/>
+                    </sheet>
+                    <footer>
+                        <button string="Send" name="action_send" type="object" class="oe_highlight"/>   
+                        <button string="Cancel" special="cancel" type="object" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="wedding_wishes_view_kanban" model="ir.ui.view">
+            <field name="name">wedding.wishes.view.kanban</field>
+            <field name="model">wedding.wishes</field>
+            <field name="arch" type="xml">
+                <kanban edit='false' create='false'>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div>
+                                    <span class="o_kanban_record_title">
+                                        <strong><field name="name" /></strong>
+                                    </span>
+                                </div>
+                                <hr class="mt4 mb8"/>
+                                <div class="o_kanban_record_subtitle">
+                                    <field name="attend" />
+                                    with
+                                    <field name="quantity" /> person(s)
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="wedding_wishes_view_form" model="ir.ui.view">
+            <field name="name">wedding.wishes.view.form</field>
+            <field name="model">wedding.wishes</field>
+            <field name="arch" type="xml">
+                <form edit='false' create='false'>
+                    <sheet>
+                        <div class='oe_title'>
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group col='4'>
+                            <field name="attend" />
+                            <field name="quantity" />
+                            <field name="wish" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wedding_wishes_view_tree" model="ir.ui.view">
+            <field name="name">wedding.wishes.view.tree</field>
+            <field name="model">wedding.wishes</field>
+            <field name="arch" type="xml">
+                <tree edit='false' create='false'>
+                    <field name="name" />
+                    <field name="attend" />
+                    <field name="quantity" />
+                </tree>
+            </field>
+        </record>
+    
+        <record id="wedding_wishes_action" model="ir.actions.act_window">
+            <field name="name">Wedding Wishes</field>
+            <field name="res_model">wedding.wishes</field>
+            <field name="view_mode">tree,kanban,form</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

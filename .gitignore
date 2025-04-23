@@ -1,0 +1,6 @@
+.idea/
+*.pyc
+**/settings.json
+.DS_Store
+*.tar
+__pycache__/

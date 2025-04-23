@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_wedding_calendar_user,wedding_plan.wedding.calendar,model_wedding_calendar,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_wedding_budget_user,wedding_plan.wedding.budget,model_wedding_budget,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_wedding_budget_planning_user,wedding_plan.wedding.budget.planning,model_wedding_budget_planning,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_wedding_budget_planning_line_user,wedding_plan.wedding.budget.planning.line,model_wedding_budget_planning_line,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_wedding_expenses_user,wedding_plan.wedding.expenses,model_wedding_expenses,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_wedding_expenses_line_user,wedding_plan.wedding.expenses.line,model_wedding_expenses_line,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_read_partner_for_portal,wedding_plan.res.partner,base.model_res_partner,,1,0,0,0
+access_create_partner_for_wedding,wedding_plan.res.partner.create.admin,base.model_res_partner,wedding_plan.group_wedding_plan_user,1,1,1,1
+access_wedding_session_user,wedding_plan.wedding.session,model_wedding_session,,1,1,1,1
+access_wedding_wishes_user,wedding_plan.wedding.wishes,model_wedding_wishes,,1,1,1,1
+access_wedding_invitation_template_user,wedding_plan.wedding.invitation.template,model_wedding_invitation_template,base.group_user,1,1,1,1
+access_sending_wedding_invitation_user,wedding_plan.sending.wedding.invitation,model_sending_wedding_invitation,base.group_user,1,1,1,1

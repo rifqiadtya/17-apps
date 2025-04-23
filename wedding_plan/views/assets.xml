@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <!-- Assets -->
+        <template id="assets_wedding" name="Assets Wedding" inherit_id="web.assets_frontend" priority="1">
+           <xpath expr="." position="inside">
+                <script type="text/javascript" src="/wedding_plan/static/src/js/wedding.js"/>
+                <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"/>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <link href="/wedding_plan/static/src/css/wedding.css" rel="stylesheet"/>	
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Roboto:wght@100&amp;display=swap" rel="stylesheet"/>
+            </xpath>
+        </template> 
+        
+        <template id="stripe" inherit_id="pos_self_order.index">
+            <xpath expr="//head" position="inside">
+                <!-- As the following link does not end with '.js', it's not loaded when
+                    placed in __manifest__.py. The following declaration fix this problem -->
+                <script src="https://js.stripe.com/terminal/v1/"></script>
+            </xpath>
+        </template>
+    
+    </data>
+    
+
+</odoo>

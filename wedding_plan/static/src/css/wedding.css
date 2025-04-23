@@ -1,0 +1,335 @@
+/* Load Fonts */
+@font-face {
+    font-family: 'BaskerVille';
+    src: url('/wedding_plan/static/src/fonts/LibreBaskerville-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+@font-face {
+    font-family: 'Quatera';
+    src: url('/wedding_plan/static/src/fonts/Quatera\ Display.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+  font-family: 'Muli';
+  src: url('/wedding_plan/static/src/fonts/muli.light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Satisfy';
+  src: url('/wedding_plan/static/src/fonts/Satisfy-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Custom Scroll Bar */
+/* width */
+.card-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.card-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.card-body::-webkit-scrollbar-thumb {
+  background: #1B1B18; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.card-body::-webkit-scrollbar-thumb:hover {
+  background: #CDA062; 
+}
+
+/* Hide Class */
+.hide {
+  height: 0 !important;
+}
+
+.hide-with-fade {
+  height: 0 !important;
+}
+
+/* Image Class */
+.show-wedding-image {
+  opacity: 1 !important;
+}
+
+.wedding-image-animated {
+  transition: all 0.5s ease;
+}
+
+
+/* Loading Container */
+.loading-container {
+    z-index: 9999;
+    position: fixed;
+    height: 100%;
+    background-color: #2C363F;
+    transition: all 1s ease-out;
+    overflow: hidden;
+}
+.lds-heart {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    transform: rotate(45deg);
+    transform-origin: 40px 40px;
+  }
+  .lds-heart div {
+    top: 32px;
+    left: 32px;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .lds-heart div:after,
+  .lds-heart div:before {
+    content: " ";
+    position: absolute;
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: #fff;
+  }
+  .lds-heart div:before {
+    left: -24px;
+    border-radius: 50% 0 0 50%;
+  }
+  .lds-heart div:after {
+    top: -24px;
+    border-radius: 50% 50% 0 0;
+  }
+  @keyframes lds-heart {
+    0% {
+      transform: scale(0.95);
+    }
+    5% {
+      transform: scale(1.1);
+    }
+    39% {
+      transform: scale(0.85);
+    }
+    45% {
+      transform: scale(1);
+    }
+    60% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(0.9);
+    }
+}
+
+/* Invitation Cover */
+.invitation-cover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.637)),url('/wedding_plan/static/src/images/background-invitation.jpg');
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 30%;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+    position: fixed;
+    z-index: 10;
+}
+
+
+.heading-wedding-invitation {
+    font-family: 'BaskerVille', Arial, sans-serif;
+    color: white;
+    font-size:15px; 
+    padding-top:50px; 
+    text-align: center;
+
+}
+
+.heading-wedding-text {
+    font-family: 'Quatera', Arial, sans-serif;
+    font-size:60px;
+    padding-top:10px;
+    text-align: center;
+    color: white
+}
+
+.heading-wedding-date {
+    font-family: 'Muli', Arial, sans-serif;
+    font-size:20px;
+    padding-top:20px;
+    text-align: center;
+    color: white
+}
+
+.heading-wedding-dear {
+    font-family: 'Muli', Arial, sans-serif;
+    font-size:25px;
+    text-align: center;
+    color: white
+}
+
+.padding-to-dear {
+    padding-top:150px;
+}
+
+@media only screen and (max-width: 414px) {
+	.heading-wedding-invitation {
+        font-size:12px; 
+        padding-top:30px; 
+    }
+    .heading-wedding-text {
+        font-size:35px;
+        padding-top:10px;
+    }
+    
+    .heading-wedding-date {
+        font-size:12px;
+        padding-top:20px;
+    }
+    
+    .heading-wedding-dear {
+        font-size:17px;
+    }
+    .padding-to-dear {
+        padding-top:200px;
+    }
+}
+
+.invitation-button {
+    background-color: #F7F4EA;
+    color: black;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 10px;
+    transition-duration: 0.4s;
+}
+
+/* Invitation Page */
+.invitation-page {
+  background-color: #1B1B18;
+  transition: all 0.3s;
+}
+.page-wedding-title {
+  font-family: 'Satisfy', Arial, sans-serif;
+  color: #CDA062;
+  text-align: center;
+  font-size: 60px;
+  padding-top: 20px;
+}
+.page-wedding-title-name {
+  font-family: 'Quatera', Arial, sans-serif;
+  color: white;
+  text-align: center;
+  font-size: 70px;
+}
+
+.page-wedding-container {
+  width: 50%;
+  height: 50%;
+  text-align: center;
+}
+
+.page-wedding-text {
+  font-family: 'Muli', Arial, sans-serif;
+  color: white;
+  font-size: 15px;
+}
+
+.page-wedding-son-of-name {
+  font-family: 'Muli', Arial, sans-serif;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.page-wedding-brides-name {
+  font-family: 'Muli', Arial, sans-serif;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  
+}
+
+.page-wedding-title-brides {
+  font-size: 25px;
+  font-family: 'Muli', Arial, sans-serif;
+  color: #CDA062;
+  font-weight: bold;
+  border-bottom: 1px solid white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.page-wedding-button {
+  font-family: 'Muli', Arial, sans-serif;
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 7px;
+  transition: all 1s;
+}
+
+.page-wedding-button:hover {
+  color: #CDA062;
+  text-decoration: none;
+}
+
+.page-wedding-countdown {
+  display: inline-block;
+  font-size: 20px;
+  list-style-type: none;
+  padding: 4em;
+  color: white;
+  text-transform: uppercase;
+}
+
+.page-wedding-countdown-text {
+  display: block;
+  font-size: 25px;
+}
+.page-wedding-party-header {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 20px;
+}
+
+.page-wedding-party-header-text {
+  font-size: 25px;
+  font-family: 'Muli', Arial, sans-serif;
+  color: #CDA062;
+  font-weight: bold;
+}
+
+.page-wedding-rsvp {
+  font-size: 25px;
+  font-family: 'Muli', Arial, sans-serif;
+  color: #CDA062;
+  font-weight: bold;
+  border-bottom: 1px solid white;
+  padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 820px) {
+	  .page-wedding-title {
+        font-size: 30px;
+    }
+    .page-wedding-title-name {
+      font-size: 40px;
+    }
+    .page-wedding-countdown {
+      padding: 10px;
+      font-size: 15px;
+    }
+    
+}

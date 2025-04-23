@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <menuitem id="wedding_plan_root_menu" name="Wedding Plan" sequence="1"
+            web_icon="wedding_plan,static/description/icon.png" groups="group_wedding_plan_user"/>
+
+        <menuitem id="wedding_calendar_menu" name="Schedule" action="wedding_calendar_action"
+            parent="wedding_plan_root_menu" sequence="1" />
+
+        <menuitem id="wedding_planning_menu" name="Planning" action="wedding_planning_action"
+            parent="wedding_plan_root_menu" sequence="2" />
+        
+        <menuitem id="wedding_invitation_menu" name="Invitation" sequence="3" parent="wedding_plan_root_menu"
+            action="invitation_action" />
+
+        <menuitem id="wedding_wishes_menu" name="Wishes" sequence="4" parent="wedding_plan_root_menu"
+            action="wedding_wishes_action" />
+
+        <menuitem id="wedding_configuration_menu" name="Configuration" sequence="99" parent='wedding_plan_root_menu' groups="group_wedding_plan_admin"/>
+
+        <menuitem id="wedding_budget_menu" name="Budget" action="wedding_budget_action"
+            parent="wedding_configuration_menu" sequence="1" />
+
+        <menuitem id="wedding_expenses_menu" name="Expenses" action="wedding_expenses_action"
+            parent="wedding_configuration_menu" sequence="2" />
+        
+        <menuitem id="wedding_session_menu" name="Session" action="wedding_session_action"
+            parent="wedding_configuration_menu" sequence="3" />
+        
+        <menuitem id="wedding_invitation_template_menu" name="Invitation Template" action="wedding_invitation_template_action"
+            parent="wedding_configuration_menu" sequence="4" />
+        
+
+    </data>
+
+
+</odoo>
