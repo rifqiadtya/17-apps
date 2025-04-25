@@ -42,7 +42,7 @@
             <xpath expr="." position="attributes"><attribute name="t-name">web.frontend_layout</attribute></xpath>
         </template>
 
-        <template id="invitation_link_template" name="Wedding Invitation - Jeje &amp; Billy">
+        <template id="invitation_link_template" name="Wedding Invitation">
             <t t-call="wedding_plan.frontend_layout_custom">
                 <div class="container-fluid loading-container d-flex justify-content-center align-items-center">
                     <div class='row'>
@@ -132,17 +132,16 @@
                                     <p class="invitation-time">Pukul 10.00 - 14.00 WIB</p>
                                 </div>
                                 <div class="invitation-location">
-                                    <p class="location-label">Bertempat di</p>
-                                    <div class="location-qr">
+                                    <!-- <div class="location-qr">
                                         <img src="/wedding_plan/static/src/images/qr-code.png" class="img-fluid" alt="Location QR Code"/>
-                                    </div>
+                                    </div> -->
+                                    <p class="location-maps btn btn-light"><a href="https://maps.app.goo.gl/mkV2nsjfKHcvxjqy8?g_st=ac" target="_blank">Google maps</a></p>
+                                    <p class="location-address">Bertempat di</p>
                                     <p class="location-address">
                                         Kediaman mempelai pria<br/>
                                         Jalan Palem Putri III No 11A<br/>
-                                        Sektor V Taman Yasmin<br/>
-                                        Bogor
+                                        Sektor V Taman Yasmin, Bogor
                                     </p>
-                                    <p class="location-maps">Google maps</p>
                                 </div>
                             </div>
                         </div>
