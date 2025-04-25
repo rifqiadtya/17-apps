@@ -1,6 +1,66 @@
 $(document).ready(function ($) {
     if (document.getElementById('invitation-cover')) 
     {
+        // Navigation dots functionality (without scroll snap)
+        const sections = document.querySelectorAll('.section-fullscreen');
+        const navDots = document.querySelectorAll('.nav-dot');
+        let currentSection = 0;
+        
+        // Smooth scroll to a specific section
+        function scrollToSection(index) {
+            if (index >= 0 && index < sections.length) {
+                currentSection = index;
+                
+                const targetPosition = sections[index].offsetTop;
+                document.querySelector('.invitation-page').scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                updateActiveDot(index);
+            }
+        }
+        
+        // Update active navigation dot
+        function updateActiveDot(index) {
+            navDots.forEach(dot => dot.classList.remove('active'));
+            navDots[index].classList.add('active');
+        }
+        
+        // Add click event to navigation dots
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                scrollToSection(index);
+            });
+        });
+        
+        // Track scroll position to update active dot
+        document.querySelector('.invitation-page').addEventListener('scroll', function() {
+            const scrollPosition = this.scrollTop;
+            
+            // Find which section is currently in view
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop - 100; // Offset for better UX
+                const sectionBottom = sectionTop + section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    if (currentSection !== index) {
+                        currentSection = index;
+                        updateActiveDot(index);
+                    }
+                }
+            });
+        });
+        
+        // Initialize the first section
+        function initializeScroll() {
+            document.querySelector('.invitation-page').scrollTop = 0;
+            updateActiveDot(0);
+        }
+        
+        // Initialize scroll position
+        initializeScroll();
+
         $(document).on('click', '#send_wish_button', function (event) {
             var vals = {
                 'name': parseInt($("#partner_id").val()),

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <template id="frontend_layout_custom" name="Frontend Layout Custom" inherit_id="web.layout" primary="True" priority="999">
+            <xpath expr="//head/meta[last()]" position="after">
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            </xpath>
+            <xpath expr="//head/link[last()]" position="after">
+                <link rel="preload" href="/web/static/src/libs/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" crossorigin=""/>
+                <!-- <script type="text/javascript" src="/wedding_plan/static/src/js/wedding.js"/>
+                <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.js"/>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <link href="/wedding_plan/static/src/css/wedding.css" rel="stylesheet"/>	
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&amp;family=Roboto:wght@100&amp;display=swap" rel="stylesheet"/> -->
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+            </xpath>
+            <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
+                <script t-nocache="Session information should always be up to date." type="text/javascript">
+                    odoo.__session_info__ = <t t-out="json.dumps(request.env['ir.http'].get_frontend_session_info())"/>;
+                    if (!/(^|;\s)tz=/.test(document.cookie)) {
+                        const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                        document.cookie = `tz=${userTZ}; path=/`;
+                    }
+                </script>
+                <t t-call-assets="web.assets_frontend_minimal" t-css="false" defer_load="True"/>
+                <t t-call="web.conditional_assets_tests">
+                    <t t-set="ignore_missing_deps" t-value="True"/>
+                </t>
+                <t t-call-assets="web.assets_frontend_lazy" t-css="false" lazy_load="True"/>
+            </xpath>
+                <xpath expr="//t[@t-out='0']" position="replace">
+                    <div id="wrapwrap" t-attf-class="#{pageName or ''}">
+                        <main>
+                            <t t-out="0"/>
+                        </main>
+                    </div>
+                </xpath>
+            <xpath expr="." position="attributes"><attribute name="t-name">web.frontend_layout</attribute></xpath>
+        </template>
+
+        <template id="invitation_link_template" name="Wedding Invitation - Jeje &amp; Billy">
+            <t t-call="wedding_plan.frontend_layout_custom">
+                <div class="container-fluid loading-container d-flex justify-content-center align-items-center">
+                    <div class='row'>
+                        <div class='col-md-12' style='text-align: center'>
+                            <div class="lds-heart" ><div></div></div>
+                        </div>
+                        <div class='col-md-12' style='text-align: center'>
+                            <h3 style="color: white; font-size: 20px">DIGITAL WEDDING INVITATION</h3>
+                            <p style="font-size: 13px; color: grey">Made with ❤ by Creativin.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid invitation-cover" id="invitation-cover">
+                    <div class='row'>
+                        <div class="col-md-12">
+                            <h3 class="heading-wedding-invitation">
+                                WE INVITE YOU TO OUR
+                                <br />
+                                WEDDING CEREMONY
+                            </h3>
+                            <h1 class="heading-wedding-text">
+                                Jeje &amp; Billy
+                            </h1>
+                            <h2 class="heading-wedding-date">
+                                16.09.23
+                                <br/>
+                                <span t-esc="record.wedding_session_id.time"/>
+                            </h2>
+                            <h3 class="heading-wedding-dear padding-to-dear">
+                                Dear,
+                            </h3>
+                            <h3 class="heading-wedding-dear">
+                                <span t-esc="record.name" />
+                            </h3>
+                            <center>
+                                <button class="btn invitation-button" id="invitation-button"><i
+                                        class="fa fa-envelope-open"></i> Open Invitation</button>
+                            </center>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container-fluid invitation-page">
+                    <div class='row' style='padding-bottom: 30px;'>
+                        <div class='col-md-6' style='padding: 0px'>   
+                            <img src="/wedding_plan/static/src/images/banner-header.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                            <h1 class="page-wedding-title">
+                                The Wedding Of
+                            </h1>
+                            <h2 class="page-wedding-title-name">
+                                Jeje &amp; Billy
+                            </h2>
+                        </div>
+                        <div class='col-md-6'>
+                            <div class='row'>
+                                <div class="col-md-12">
+                                    <div class='row'>
+                                        <div class="col-6 d-flex justify-content-center align-items-center">
+                                            <p class='page-wedding-text'>
+                                                16.09.23
+                                            </p>
+                                        </div>
+                                        <div class='col-6' style='padding: 20px'>
+                                            <img src="/wedding_plan/static/src/images/banner-side1.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class='row'>
+                                        <div class='col-6'>
+                                            <img src="/wedding_plan/static/src/images/banner-side2.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-center align-items-center">
+                                            <p class='page-wedding-text'>Join us as we weave two souls into one, capturing timeless moments of joy and togetherness on our special day of matrimony.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" style='background-color: #2d2f31; padding-top: 30px; padding-bottom: 30px;'>
+                        <div class="col-md-5 col-12" style='padding: 0px'>
+                            <img src="/wedding_plan/static/src/images/bride.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                        </div>
+                        <div class="col-md-3 col-12" style="margin-top: auto; margin-bottom: auto;">
+                            <div class='row'>
+                                <div class="col-12">
+                                    <h1 class="page-wedding-title-brides">THE BRIDE</h1>
+                                    <p class='page-wedding-brides-name'>
+                                        Jihan Aldini Salsabila
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p class='page-wedding-son-of-name'>THE DAUGHTER of</p>
+                                    <p class='page-wedding-text'>
+                                        Alm. Panji Aryadi Wijaya
+                                        <br/>
+                                        Ziedan Rizka Wijaya (sbg. Wali/Kakak)
+                                        <br/>
+                                        Debby Fikriana Jafar
+                                    </p>
+                                </div>
+                                <div class="col-12" style='margin-top: 20px'>
+                                    <a class="page-wedding-button" href="https://www.instagram.com/jejee.salsabilaa/" target="_blank" rel="noopener" style="border: 0px; border-bottom: 1px solid white;">
+                                        <i class="fa fa-instagram"/>
+                                        Instagram →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style='padding-top: 30px'>
+                        <div class='col-md-3'/>
+                        <div class='col-md-6 col-12'>
+                            <p class='page-wedding-text' style="text-align: center">“And one of His signs is that He created for you spouses from among yourselves so that you may find comfort in them. 
+                                            And He has placed between your compassion and mercy. Surely in this are signs for people who reflect.”</p>
+                        </div>
+                        <div class='col-md-3'/>
+                    </div>
+                    <div class="row justify-content-center" style='background-color: #2d2f31; padding-top: 30px; padding-bottom: 30px;'>
+                        <div class="col-md-3 col-11" style='padding: 0px'>
+                            <img src="/wedding_plan/static/src/images/groom.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                        </div>
+                        <div class="col-md-3 col-12" style="margin-top: auto; margin-bottom: auto;">
+                            <div class='row'>
+                                <div class="col-12">
+                                    <h1 class="page-wedding-title-brides">THE GROOM</h1>
+                                    <p class='page-wedding-brides-name'>
+                                        Farhan Sabili
+                                    </p>
+                                </div>
+                                <div class="col-12">
+                                    <p class='page-wedding-son-of-name'>THE SON of</p>
+                                    <p class='page-wedding-text'>
+                                        Hanafi
+                                        <br/>
+                                        Mulyana
+                                    </p>
+                                </div>
+                                <div class="col-12" style='margin-top: 20px'>
+                                    <a class="page-wedding-button" href="https://www.instagram.com/billy.lvn/" target="_blank" rel="noopener" style="border: 0px; border-bottom: 1px solid white;">
+                                        <i class="fa fa-instagram"/>
+                                        Instagram →
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class='col-12'>
+                            <div id="countdown" style='text-align: center'>
+                                <ul style="padding: 0px">
+                                    <li class="page-wedding-countdown"><span class='page-wedding-countdown-text' id="days"></span>days</li>
+                                    <li class="page-wedding-countdown"><span class='page-wedding-countdown-text' id="hours"></span>Hours</li>
+                                    <li class="page-wedding-countdown"><span class='page-wedding-countdown-text' id="minutes"></span>Minutes</li>
+                                    <li class="page-wedding-countdown"><span class='page-wedding-countdown-text' id="seconds"></span>Seconds</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" style="padding-bottom: 30px;">
+                        <div class='col-12 col-md-3' style='padding-left: 0px'>
+                            <img src="/wedding_plan/static/src/images/schedule-photo.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                        </div>
+                        <div class='col-12 col-md-3 page-wedding-party-header'>
+                            <h1 class="page-wedding-party-header-text">HOLIMATRIMONY</h1>
+                            <h2 class="page-wedding-text">16 September 2023, 09.00 WIB - 11.00 WIB</h2>
+                            <p class='page-wedding-text'>
+                                Biru Garden, Unyur, Serang, Banten 42111
+                            </p>
+                            <a class="page-wedding-button" href="https://goo.gl/maps/Sk4Tde2EdPgEgRAM7" target="_blank" rel="noopener">
+                                <i class="fa fa-map-marker"/>
+                                MAPS →
+                            </a>
+                        </div>
+                        <div class='col-12 col-md-3 page-wedding-party-header'>
+                            <h1 class="page-wedding-party-header-text">WEDDING PARTY</h1>
+                            <h2 class="page-wedding-text">16 September 2023, <span t-esc="record.wedding_session_id.time" /></h2>
+                            <p class='page-wedding-text'>
+                                Biru Garden, Unyur, Serang, Banten 42111
+                            </p>
+                             <a class="page-wedding-button" href="https://goo.gl/maps/Sk4Tde2EdPgEgRAM7" target="_blank" rel="noopener">
+                                <i class="fa fa-map-marker"/>
+                                MAPS →
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-12' style='padding: 0px'>
+                            <img src="/wedding_plan/static/src/images/galery1.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                        </div>
+                        <div class='col-6' style='padding: 0px'>
+                            <img src="/wedding_plan/static/src/images/galery2.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                        </div>
+                        <div class='col-6' style='padding: 0px'>
+                            <img src="/wedding_plan/static/src/images/galery3.jpg" class="img-fluid wedding-image-animated" alt="Jeje &amp; Billy Wedding"/>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center" style='background-color: #2d2f31; padding-top: 30px; padding-bottom: 30px;'>
+                        <div class='col-12'>
+                            <h1 class="page-wedding-rsvp">RSVP &amp; WISHES</h1>
+                            <p class='page-wedding-text'>We kindly request your congratulations and prayers for our wedding ceremony. Thank you for your attention.</p>
+                            <div class='row'>
+                                <div class='col-12 col-md-6'>
+                                    <form method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                        <input type='hidden' name='base_url' id='base_url' t-att-value="base_url" />
+                                        <input type="hidden" name='partner_id' id='partner_id' t-att-value="record.id"/>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label class="page-wedding-text" for="name">Name</label>
+                                                <input style="background-color: #acafb1; font-weight: bold;" type="text" class="form-control" id="name" name="name" placeholder="Enter name" t-att-value="record.name" readonly="1"/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="page-wedding-text" for="attend">Attend</label>
+                                                <select class="form-control select_search" required="1"
+                                                    aria-label="Attend" name='attend' id='attend'>
+                                                    <option value="yes">Yes, I will gladly attend</option>
+                                                    <option value="no">No, regretfully I won't be able to attend</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="page-wedding-text" for="quantity">Amount</label>
+                                                <input type="number" name='quantity' class="form-control" id="quantity"
+                                                    required='1' placeholder="e.g. 2" value='1'/>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label class="page-wedding-text" for="wish">Wishes</label>
+                                                <textarea type="text" class="form-control" id="wish" name="wish" placeholder="Your wish.."/>
+                                            </div>
+                                            <button type="button" class="btn page-wedding-button" id="send_wish_button">
+                                                Send
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class='col-12 col-md-6'>
+                                    <div class="card"
+                                        style="width: 100%; margin-top: 20px; margin-bottom: 20px;">
+                                        <div class="card-body overflow-auto" style="background-color: #2d2f31!important; height: 210px">
+                                            <table class="table">
+                                                <t t-foreach="wishes" t-as="wish">
+                                                    <tr>
+                                                        <td style="border-bottom: 1px solid white; border-top: 0px;" class="page-wedding-text">
+                                                            <strong><span t-esc="wish.name.name"/></strong>
+                                                            <t t-if="wish.attend == 'yes'">
+                                                                <br/>
+                                                                <small><span t-esc="dict(wish._fields['attend'].selection).get(wish.attend)"/> with <span t-esc="wish.quantity"/> person(s)</small> 
+                                                            </t>
+                                                            <t t-else="">
+                                                                <br/>
+                                                                <small><span t-esc="dict(wish._fields['attend'].selection).get(wish.attend)"/></small> 
+                                                            </t>
+                                                            <br/>
+                                                            <span t-esc="wish.wish"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+    </data>
+
+
+</odoo>

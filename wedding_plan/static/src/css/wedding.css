@@ -23,6 +23,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Great Vibes';
+  src: url('/wedding_plan/static/src/fonts/GreatVibes-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 /* Custom Scroll Bar */
 /* width */
 .card-body::-webkit-scrollbar {
@@ -131,93 +137,128 @@
 
 /* Invitation Cover */
 .invitation-cover {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.637), rgba(0, 0, 0, 0.637)),url('/wedding_plan/static/src/images/background-invitation.jpg');
+    background-image: url('/wedding_plan/static/src/images/inv-cover.jpg');
     height: 100%;
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    background-position: 50% 30%;
-    overflow: hidden;
-    transition: all 0.5s ease-in-out;
     position: fixed;
     z-index: 10;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
 }
 
+.cover-content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    text-align: center;
+}
 
 .heading-wedding-invitation {
-    font-family: 'BaskerVille', Arial, sans-serif;
-    color: white;
-    font-size:15px; 
-    padding-top:50px; 
+    font-family: 'Great Vibes', Arial, sans-serif;
+    color: #7d5a5a;
+    font-size: 32px;
     text-align: center;
+    margin-bottom: 30px;
+}
 
+.cover-initials {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .heading-wedding-text {
-    font-family: 'Quatera', Arial, sans-serif;
-    font-size:60px;
-    padding-top:10px;
+    font-family: 'Great Vibes', Arial, sans-serif;
+    font-size: 120px;
+    line-height: 1;
     text-align: center;
-    color: white
+    color: #7d5a5a;
 }
 
-.heading-wedding-date {
-    font-family: 'Muli', Arial, sans-serif;
-    font-size:20px;
-    padding-top:20px;
-    text-align: center;
-    color: white
+.cover-recipient {
+    background-color: rgba(125, 90, 90, 0.6);
+    padding: 10px 30px;
+    border-radius: 15px;
+    margin: 40px 0;
 }
 
 .heading-wedding-dear {
-    font-family: 'Muli', Arial, sans-serif;
-    font-size:25px;
+    font-family: 'Great Vibes', Arial, sans-serif;
+    font-size: 24px;
     text-align: center;
-    color: white
+    color: white;
+    margin: 0;
 }
 
 .padding-to-dear {
-    padding-top:150px;
-}
-
-@media only screen and (max-width: 414px) {
-	.heading-wedding-invitation {
-        font-size:12px; 
-        padding-top:30px; 
-    }
-    .heading-wedding-text {
-        font-size:35px;
-        padding-top:10px;
-    }
-    
-    .heading-wedding-date {
-        font-size:12px;
-        padding-top:20px;
-    }
-    
-    .heading-wedding-dear {
-        font-size:17px;
-    }
-    .padding-to-dear {
-        padding-top:200px;
-    }
+    padding-top: 0;
 }
 
 .invitation-button {
-    background-color: #F7F4EA;
-    color: black;
-    padding: 10px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    background-color: white;
+    color: #7d5a5a;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 30px;
+    font-family: 'Muli', sans-serif;
     font-size: 16px;
-    margin: 5px 10px;
-    transition-duration: 0.4s;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.invitation-button:hover {
+    background-color: #f8f1ea;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .heading-wedding-invitation {
+        font-size: 28px;
+    }
+    
+    .heading-wedding-text {
+        font-size: 100px;
+    }
+    
+    .heading-wedding-dear {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading-wedding-invitation {
+        font-size: 24px;
+    }
+    
+    .heading-wedding-text {
+        font-size: 80px;
+    }
+    
+    .heading-wedding-dear {
+        font-size: 20px;
+    }
+    
+    .invitation-button {
+        padding: 8px 25px;
+        font-size: 14px;
+    }
 }
 
 /* Invitation Page */
 .invitation-page {
-  background-color: #1B1B18;
+  background-color: #FEF6F1;
   transition: all 0.3s;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 .page-wedding-title {
   font-family: 'Satisfy', Arial, sans-serif;
@@ -271,13 +312,15 @@
 }
 .page-wedding-button {
   font-family: 'Muli', Arial, sans-serif;
-  color: white;
+  color: #84776C;
   font-size: 17px;
   font-weight: bold;
-  border: 1px solid white;
+  /* border: 1px solid #FEF6F1; */
   border-radius: 10px;
   padding: 7px;
   transition: all 1s;
+  background: #FEF6F1;
+  width: 100%;
 }
 
 .page-wedding-button:hover {
@@ -332,4 +375,474 @@
       font-size: 15px;
     }
     
+}
+
+/* Full Screen Sections for Mobile */
+.section-fullscreen {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background-color: #fef6f1;
+  overflow: hidden;
+}
+
+/* Floral Frame Container */
+.floral-frame {
+  width: 100%;
+  height: 100vh;
+  /* background-image: url('/wedding_plan/static/src/images/floral-frame.jpg'); */
+  background-image: url('/wedding_plan/static/src/images/inv-cover.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+  color: #7d5a5a;
+  position: relative;
+}
+
+/* Couple Names Section (Image 3) */
+.couple-photo {
+  width: 150px;
+  height: 250px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.couple-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.couple-name {
+  font-family: 'Great Vibes', cursive;
+  font-size: 32px;
+  margin: 10px 0;
+  color: #7d5a5a;
+}
+
+.couple-parent {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #7d5a5a;
+}
+
+.couple-and {
+  font-family: 'Great Vibes', cursive;
+  font-size: 40px;
+  margin: 10px 0;
+  color: #7d5a5a;
+}
+
+/* Quran Verse Section (Image 2) */
+.arabic-text {
+  font-size: 28px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.quran-verse {
+  font-size: 18px;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  direction: rtl;
+}
+
+.quran-translation {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  font-style: italic;
+  padding: 0 20px;
+}
+
+.quran-surah {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Invitation Text Section (Image 4) */
+.invitation-greeting {
+  font-family: 'Muli', sans-serif;
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.invitation-text {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  padding: 0 10px;
+}
+
+.invitation-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 36px;
+  margin: 15px 0;
+  color: #7d5a5a;
+}
+
+.invitation-details {
+  margin: 15px 0;
+}
+
+.invitation-date, .invitation-time {
+  font-family: 'Muli', sans-serif;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.invitation-location {
+  margin-top: 20px;
+}
+
+.location-label {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  background-color: #d9c2b0;
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.location-qr {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+}
+
+.location-address {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.location-maps {
+  font-family: 'Muli', sans-serif;
+  font-size: 12px;
+  color: #7d5a5a;
+  margin-top: 5px;
+}
+
+/* Wishes Form Section (Image 1) */
+.wishes-compact-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  gap: 15px;
+}
+
+.wishes-form-container {
+  width: 100%;
+}
+
+.wishes-form {
+  width: 100%;
+}
+
+.wishes-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.wishes-form .form-group {
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+
+.wishes-form label {
+  font-family: 'Muli', sans-serif;
+  font-size: 12px;
+  margin-bottom: 3px;
+  color: #7d5a5a;
+}
+
+.wishes-form .form-control {
+  font-size: 14px;
+  padding: 6px 10px;
+  height: auto;
+}
+
+.wishes-form textarea.form-control {
+  min-height: 60px;
+}
+
+.wishes-display-container {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.wishes-header {
+  font-family: 'Great Vibes', cursive;
+  font-size: 24px;
+  color: #7d5a5a;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.wishes-list {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.wish-item {
+  background-color: rgba(217, 194, 176, 0.8);
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.wish-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wish-name {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.wish-attendance {
+  font-family: 'Muli', sans-serif;
+  font-size: 11px;
+  margin: 0;
+}
+
+.wish-text {
+  font-family: 'Muli', sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  margin: 5px 0 0 0;
+}
+
+/* Countdown Section (Image 5) */
+.countdown-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 30px;
+  margin-bottom: 10px;
+  color: #7d5a5a;
+}
+
+.couple-initials {
+  font-family: 'Great Vibes', cursive;
+  font-size: 60px;
+  margin: 20px 0;
+  color: #7d5a5a;
+}
+
+.countdown-container {
+  margin-top: 30px;
+}
+
+.countdown-label {
+  font-family: 'Muli', sans-serif;
+  font-size: 14px;
+  background-color: #d9c2b0;
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.countdown-item {
+  width: 50px;
+  text-align: center;
+}
+
+.countdown-number {
+  font-family: 'Muli', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  background-color: #d9c2b0;
+  padding: 10px 0;
+  border-radius: 5px;
+  color: #7d5a5a;
+}
+
+.countdown-text {
+  font-family: 'Muli', sans-serif;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #7d5a5a;
+}
+
+/* Navigation Dots */
+.nav-dots {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  gap: 15px;
+}
+
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+  background-color: #fff;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+/* Enhanced Wishes Container */
+.wishes-container {
+  width: 100%;
+  max-width: 350px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.wishes-header {
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  color: #7d5a5a;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.wishes-list {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* Update wish item styles for the new container */
+.wish-item {
+  background-color: rgba(217, 194, 176, 0.8);
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* Media query adjustments */
+@media (max-width: 768px) {
+  .nav-dots {
+    right: 10px;
+    gap: 12px;
+  }
+  
+  .nav-dot {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .wishes-header {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-dots {
+    right: 5px;
+    gap: 10px;
+  }
+  
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .floral-frame {
+    padding: 30px 20px;
+  }
+  
+  .couple-name, .invitation-title, .wishes-title {
+    font-size: 28px;
+  }
+  
+  .couple-and {
+    font-size: 32px;
+  }
+  
+  .arabic-text {
+    font-size: 22px;
+  }
+  
+  .quran-verse {
+    font-size: 16px;
+  }
+  
+  .quran-translation {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  
+  .couple-initials {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floral-frame {
+    padding: 20px 15px;
+  }
+  
+  .couple-photo {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .couple-name, .invitation-title, .wishes-title {
+    font-size: 24px;
+  }
+  
+  .couple-and {
+    font-size: 28px;
+  }
+  
+  .arabic-text {
+    font-size: 18px;
+  }
+  
+  .countdown-item {
+    width: 40px;
+  }
+  
+  .countdown-number {
+    font-size: 20px;
+  }
 }
