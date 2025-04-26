@@ -76,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="container-fluid invitation-page">
+                <div class="invitation-page">
                     <!-- Navigation Dots -->
                     <div class="nav-dots">
                         <span class="nav-dot active" data-index="0"></span>
@@ -87,7 +87,7 @@
                     </div>
                     
                     <!-- Section 1: Couple Names with Floral Frame (Image 3) -->
-                    <div class='row section-fullscreen' id="couple-names">
+                    <div class='section-fullscreen' id="couple-names">
                         <div class='col-12 d-flex flex-column justify-content-center align-items-center'>
                             <div class="floral-frame">
                                 <div class="couple-photo">
@@ -103,7 +103,7 @@
                     </div>
                     
                     <!-- Section 2: Quran Verse with Floral Frame (Image 2) -->
-                    <div class='row section-fullscreen' id="quran-verse">
+                    <div class='section-fullscreen' id="quran-verse">
                         <div class='col-12 d-flex flex-column justify-content-center align-items-center'>
                             <div class="floral-frame">
                                 <h2 class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</h2>
@@ -119,7 +119,7 @@
                     </div>
                     
                     <!-- Section 3: Invitation Text with Floral Frame (Image 4) -->
-                    <div class='row section-fullscreen' id="invitation-text">
+                    <div class='section-fullscreen' id="invitation-text">
                         <div class='col-12 d-flex flex-column justify-content-center align-items-center'>
                             <div class="floral-frame">
                                 <h2 class="invitation-greeting">Assalamualaikum Warahmatullahi Wabarakatuh</h2>
@@ -148,7 +148,7 @@
                     </div>
                     
                     <!-- Section 4: Wishes Form with Floral Frame (Image 1) -->
-                    <div class='row section-fullscreen' id="wishes-form">
+                    <div class='section-fullscreen' id="wishes-form">
                         <div class='col-12 d-flex flex-column justify-content-center align-items-center'>
                             <div class="floral-frame">
                                 <div class="wishes-compact-container">
@@ -212,7 +212,7 @@
                     </div>
                     
                     <!-- Section 5: Countdown with Floral Frame (Image 5) -->
-                    <div class='row section-fullscreen' id="countdown-section">
+                    <div class='section-fullscreen' id="countdown-section">
                         <div class='col-12 d-flex flex-column justify-content-center align-items-center'>
                             <div class="floral-frame">
                                 <h2 class="countdown-title">With love,</h2>
