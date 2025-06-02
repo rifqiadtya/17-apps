@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Split Bill Security Category -->
+        <record id="module_category_split_bill" model="ir.module.category">
+            <field name="name">Split Bill</field>
+            <field name="description">Helps you manage bill splitting</field>
+            <field name="sequence">20</field>
+        </record>
+        
+        <!-- Split Bill User Group -->
+        <record id="group_split_bill_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_split_bill"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        
+        <!-- Split Bill Manager Group -->
+        <record id="group_split_bill_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_category_split_bill"/>
+            <field name="implied_ids" eval="[(4, ref('group_split_bill_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+        
+        <!-- Record Rules -->
+        <record id="split_bill_comp_rule" model="ir.rule">
+            <field name="name">Split Bill: multi-company rule</field>
+            <field name="model_id" ref="model_split_bill"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <record id="split_bill_session_comp_rule" model="ir.rule">
+            <field name="name">Split Bill Session: multi-company rule</field>
+            <field name="model_id" ref="model_split_bill_session"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <record id="split_bill_participant_comp_rule" model="ir.rule">
+            <field name="name">Split Bill Participant: multi-company rule</field>
+            <field name="model_id" ref="model_split_bill_participant"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <record id="split_bill_item_comp_rule" model="ir.rule">
+            <field name="name">Split Bill Item: multi-company rule</field>
+            <field name="model_id" ref="model_split_bill_item"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+        
+        <record id="split_bill_payment_comp_rule" model="ir.rule">
+            <field name="name">Split Bill Payment: multi-company rule</field>
+            <field name="model_id" ref="model_split_bill_payment"/>
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

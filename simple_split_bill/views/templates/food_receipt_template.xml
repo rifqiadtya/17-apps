@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="food_receipt_template" name="Food Order Receipt">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                <title>Food Order Receipt - <t t-esc="order.name"/></title>
+                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css"/>
+                <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
+                <style>
+                    body {
+                        background-color: #f8f9fa;
+                        font-family: 'Roboto', sans-serif;
+                    }
+                    .receipt-container {
+                        max-width: 800px;
+                        margin: 30px auto;
+                        background-color: white;
+                        border-radius: 10px;
+                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                        padding: 30px;
+                    }
+                    .receipt-header {
+                        border-bottom: 1px solid #eee;
+                        padding-bottom: 20px;
+                        margin-bottom: 20px;
+                    }
+                    .receipt-title {
+                        font-size: 24px;
+                        font-weight: bold;
+                        color: #4c4c4c;
+                    }
+                    .receipt-subtitle {
+                        font-size: 16px;
+                        color: #777;
+                    }
+                    .receipt-info {
+                        display: flex;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        margin-bottom: 20px;
+                    }
+                    .receipt-info-item {
+                        margin-bottom: 10px;
+                        flex-basis: 48%;
+                    }
+                    .receipt-label {
+                        font-weight: bold;
+                        color: #555;
+                    }
+                    .receipt-value {
+                        color: #333;
+                    }
+                    .receipt-table {
+                        width: 100%;
+                        margin-bottom: 20px;
+                    }
+                    .receipt-table th {
+                        background-color: #f5f5f5;
+                        padding: 10px;
+                        text-align: left;
+                    }
+                    .receipt-table td {
+                        padding: 10px;
+                        border-bottom: 1px solid #eee;
+                    }
+                    .receipt-total {
+                        text-align: right;
+                        margin-top: 20px;
+                        padding-top: 20px;
+                        border-top: 1px solid #eee;
+                    }
+                    .receipt-total-row {
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-bottom: 5px;
+                    }
+                    .receipt-total-label {
+                        font-weight: bold;
+                        width: 150px;
+                        text-align: right;
+                        margin-right: 20px;
+                    }
+                    .receipt-total-value {
+                        width: 100px;
+                        text-align: right;
+                    }
+                    .receipt-grand-total {
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: #28a745;
+                    }
+                    .btn-mark-paid {
+                        background-color: #28a745;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-weight: bold;
+                        margin-top: 20px;
+                    }
+                    .payment-status {
+                        display: inline-block;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        font-weight: bold;
+                        margin-top: 10px;
+                    }
+                    .payment-status.paid {
+                        background-color: #d4edda;
+                        color: #155724;
+                    }
+                    .payment-status.unpaid {
+                        background-color: #f8d7da;
+                        color: #721c24;
+                    }
+                    .participant-selector {
+                        margin-bottom: 20px;
+                        padding: 15px;
+                        background-color: #f8f9fa;
+                        border-radius: 5px;
+                    }
+                    @media (max-width: 768px) {
+                        .receipt-info-item {
+                            flex-basis: 100%;
+                        }
+                    }
+                </style>
+            </t>
+            <div class="receipt-container">
+                <div class="receipt-header">
+                    <div class="receipt-title">
+                        <t t-esc="order.name"/> - Food Order Receipt
+                    </div>
+                    <div class="receipt-subtitle">
+                        <t t-esc="order.restaurant"/> (<t t-esc="order.service_type"/>)
+                    </div>
+                </div>
+                
+                <!-- Participant Selector -->
+                <div class="participant-selector" t-if="not partner_id">
+                    <div class="mb-3">
+                        <label class="form-label">Select your name to view your bill:</label>
+                        <div class="d-flex flex-wrap">
+                            <t t-foreach="order.participant_ids" t-as="participant">
+                                <a t-att-href="'/food/receipt/%s/%s?partner_id=%s' % (order.id, order.access_token, participant.id)" class="btn btn-outline-primary me-2 mb-2">
+                                    <t t-esc="participant.name"/>
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Individual Receipt View -->
+                <t t-if="partner_id">
+                    <div class="alert alert-info">
+                        Viewing receipt for: <strong><t t-esc="partner.name"/></strong>
+                        <a t-att-href="'/food/receipt/%s/%s' % (order.id, order.access_token)" class="float-end">View All</a>
+                    </div>
+                    
+                    <div class="receipt-info">
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Date:</span>
+                            <span class="receipt-value"><t t-esc="order.date"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Restaurant:</span>
+                            <span class="receipt-value"><t t-esc="order.restaurant"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Service:</span>
+                            <span class="receipt-value"><t t-esc="order.service_type"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Status:</span>
+                            <span class="receipt-value"><t t-esc="order.state"/></span>
+                        </div>
+                    </div>
+                    
+                    <h4>Your Items</h4>
+                    <table class="receipt-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="items">
+                                <t t-foreach="items" t-as="item">
+                                    <tr>
+                                        <td><t t-esc="item.name"/></td>
+                                        <td><t t-esc="item.quantity"/></td>
+                                        <td><t t-esc="item.price_unit" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                        <td><t t-esc="item.price_subtotal" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <tr>
+                                    <td colspan="4" class="text-center">No items assigned to you</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    
+                    <t t-if="payment_line">
+                        <div class="receipt-total">
+                            <div class="receipt-total-row">
+                                <div class="receipt-total-label">Food Amount:</div>
+                                <div class="receipt-total-value">
+                                    <t t-esc="payment_line.food_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                                </div>
+                            </div>
+                            <div class="receipt-total-row">
+                                <div class="receipt-total-label">Fee Amount:</div>
+                                <div class="receipt-total-value">
+                                    <t t-esc="payment_line.fee_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                                </div>
+                            </div>
+                            <div class="receipt-total-row">
+                                <div class="receipt-total-label">Discount:</div>
+                                <div class="receipt-total-value">
+                                    <t t-esc="payment_line.discount_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                                </div>
+                            </div>
+                            <div class="receipt-total-row receipt-grand-total">
+                                <div class="receipt-total-label">Total Amount:</div>
+                                <div class="receipt-total-value">
+                                    <t t-esc="payment_line.total_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                                </div>
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <div t-if="payment_line.is_paid" class="payment-status paid">
+                                    <i class="fa fa-check-circle"></i> Paid
+                                </div>
+                                <div t-else="" class="payment-status unpaid">
+                                    <i class="fa fa-exclamation-circle"></i> Unpaid
+                                </div>
+                                
+                                <div t-if="not payment_line.is_paid" class="mt-3">
+                                    <a t-att-href="'/food/receipt/%s/%s/mark_paid?partner_id=%s' % (order.id, order.access_token, partner_id)" class="btn btn-mark-paid">
+                                        Mark as Paid
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+                
+                <!-- Full Order View -->
+                <t t-if="not partner_id">
+                    <div class="receipt-info">
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Date:</span>
+                            <span class="receipt-value"><t t-esc="order.date"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Restaurant:</span>
+                            <span class="receipt-value"><t t-esc="order.restaurant"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Service:</span>
+                            <span class="receipt-value"><t t-esc="order.service_type"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Status:</span>
+                            <span class="receipt-value"><t t-esc="order.state"/></span>
+                        </div>
+                        <div class="receipt-info-item">
+                            <span class="receipt-label">Payer:</span>
+                            <span class="receipt-value"><t t-esc="order.payer_id.name"/></span>
+                        </div>
+                    </div>
+                    
+                    <h4>All Items</h4>
+                    <table class="receipt-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Participant</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="order.line_ids" t-as="line">
+                                <tr>
+                                    <td><t t-esc="line.name"/></td>
+                                    <td><t t-esc="line.partner_id.name if line.partner_id else 'Unassigned'"/></td>
+                                    <td><t t-esc="line.quantity"/></td>
+                                    <td><t t-esc="line.price_unit" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                    <td><t t-esc="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    
+                    <div class="receipt-total">
+                        <div class="receipt-total-row">
+                            <div class="receipt-total-label">Subtotal:</div>
+                            <div class="receipt-total-value">
+                                <t t-esc="order.subtotal" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                            </div>
+                        </div>
+                        <div class="receipt-total-row">
+                            <div class="receipt-total-label">Delivery Fee:</div>
+                            <div class="receipt-total-value">
+                                <t t-esc="order.delivery_fee" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                            </div>
+                        </div>
+                        <div class="receipt-total-row">
+                            <div class="receipt-total-label">Service Fee:</div>
+                            <div class="receipt-total-value">
+                                <t t-esc="order.service_fee" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                            </div>
+                        </div>
+                        <div class="receipt-total-row">
+                            <div class="receipt-total-label">Tax:</div>
+                            <div class="receipt-total-value">
+                                <t t-esc="order.tax" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                            </div>
+                        </div>
+                        <div class="receipt-total-row">
+                            <div class="receipt-total-label">Discount:</div>
+                            <div class="receipt-total-value">
+                                <t t-esc="order.discount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                            </div>
+                        </div>
+                        <div class="receipt-total-row receipt-grand-total">
+                            <div class="receipt-total-label">Total Amount:</div>
+                            <div class="receipt-total-value">
+                                <t t-esc="order.total" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4 class="mt-4">Payment Status</h4>
+                    <table class="receipt-table">
+                        <thead>
+                            <tr>
+                                <th>Participant</th>
+                                <th>Food Amount</th>
+                                <th>Fee Amount</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-if="order.payment_id and order.payment_id.payment_line_ids">
+                                <t t-foreach="order.payment_id.payment_line_ids" t-as="line">
+                                    <tr>
+                                        <td><t t-esc="line.partner_id.name"/></td>
+                                        <td><t t-esc="line.food_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                        <td><t t-esc="line.fee_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                        <td><t t-esc="line.total_amount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></td>
+                                        <td>
+                                            <span t-if="line.is_paid" class="badge bg-success">Paid</span>
+                                            <span t-else="" class="badge bg-danger">Unpaid</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <tr>
+                                    <td colspan="5" class="text-center">No payment information available</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+                
+                <div class="text-center mt-4">
+                    <small class="text-muted">
+                        This receipt was generated by the Simple Split Bill module.
+                    </small>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

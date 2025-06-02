@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Food Order Payment Tree View -->
+    <record id="view_food_order_payment_tree" model="ir.ui.view">
+        <field name="name">food.order.payment.tree</field>
+        <field name="model">food.order.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Food Order Payments" decoration-success="is_paid" decoration-danger="not is_paid">
+                <field name="order_id"/>
+                <field name="food_amount" sum="Food" widget="monetary"/>
+                <field name="fee_amount" sum="Fees" widget="monetary"/>
+                <field name="discount_amount" sum="Discount" widget="monetary"/>
+                <field name="total_amount" sum="Total" widget="monetary"/>
+                <field name="is_paid" widget="boolean_toggle"/>
+                <field name="payment_date"/>
+                <field name="payment_method"/>
+                <field name="payment_notes"/>
+                <field name="currency_id" invisible="1"/>
+                <button name="action_mark_as_paid" string="Mark Paid" type="object" icon="fa-check" attrs="{'invisible': [('is_paid', '=', True)]}"/>
+                <button name="action_mark_as_unpaid" string="Mark Unpaid" type="object" icon="fa-times" attrs="{'invisible': [('is_paid', '=', False)]}"/>
+                <button name="action_view_items" string="View Items" type="object" icon="fa-list"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Food Order Payment Form View -->
+    <record id="view_food_order_payment_form" model="ir.ui.view">
+        <field name="name">food.order.payment.form</field>
+        <field name="model">food.order.payment</field>
+        <field name="arch" type="xml">
+            <form string="Food Order Payment">
+                <header>
+                    <button name="action_mark_as_paid" string="Mark as Paid" type="object" class="oe_highlight" attrs="{'invisible': [('is_paid', '=', True)]}"/>
+                    <button name="action_mark_as_unpaid" string="Mark as Unpaid" type="object" attrs="{'invisible': [('is_paid', '=', False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_items" type="object" class="oe_stat_button" icon="fa-list">
+                            <field name="item_count" widget="statinfo" string="Items"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="food_amount" widget="monetary"/>
+                            <field name="fee_amount" widget="monetary"/>
+                            <field name="discount_amount" widget="monetary"/>
+                            <field name="total_amount" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group string="Payment Information">
+                        <group>
+                            <field name="is_paid" widget="boolean_toggle"/>
+                            <field name="payment_date"/>
+                        </group>
+                        <group>
+                            <field name="payment_method"/>
+                            <field name="payment_notes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Payment Lines" name="payment_lines">
+                            <field name="payment_line_ids" context="{'default_payment_id': active_id}">
+                                <tree editable="bottom" decoration-success="is_paid" decoration-danger="not is_paid">
+                                    <field name="partner_id"/>
+                                    <field name="food_amount" sum="Food Amount" widget="monetary"/>
+                                    <field name="fee_amount" sum="Fee Amount" widget="monetary"/>
+                                    <field name="discount_amount" sum="Discount" widget="monetary"/>
+                                    <field name="total_amount" sum="Total" widget="monetary"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="is_paid" widget="boolean_toggle"/>
+                                    <field name="payment_date"/>
+                                    <field name="payment_method"/>
+                                    <field name="payment_notes"/>
+                                    <button name="action_mark_as_paid" string="Mark Paid" type="object" icon="fa-check" attrs="{'invisible': [('is_paid', '=', True)]}"/>
+                                    <button name="action_mark_as_unpaid" string="Mark Unpaid" type="object" icon="fa-times" attrs="{'invisible': [('is_paid', '=', False)]}"/>
+                                    <button name="action_view_items" string="View Items" type="object" icon="fa-list"/>
+                                </tree>
+                                <form string="Payment Line">
+                                    <group>
+                                        <group>
+                                            <field name="partner_id"/>
+                                            <field name="is_paid" widget="boolean_toggle"/>
+                                            <field name="payment_date"/>
+                                            <field name="payment_method"/>
+                                            <field name="payment_notes"/>
+                                        </group>
+                                        <group>
+                                            <field name="food_amount" widget="monetary"/>
+                                            <field name="fee_amount" widget="monetary"/>
+                                            <field name="discount_amount" widget="monetary"/>
+                                            <field name="total_amount" widget="monetary"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Items" name="items">
+                            <field name="item_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit" widget="monetary"/>
+                                    <field name="price_subtotal" widget="monetary"/>
+                                    <field name="notes"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Food Order Payment Search View -->
+    <record id="view_food_order_payment_search" model="ir.ui.view">
+        <field name="name">food.order.payment.search</field>
+        <field name="model">food.order.payment</field>
+        <field name="arch" type="xml">
+            <search string="Food Order Payments">
+                <field name="partner_id"/>
+                <field name="order_id"/>
+                <filter string="Paid" name="paid" domain="[('is_paid', '=', True)]"/>
+                <filter string="Unpaid" name="unpaid" domain="[('is_paid', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Order" name="group_by_order_id" context="{'group_by': 'order_id'}"/>
+                    <filter string="Participant" name="group_by_partner_id" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Payment Status" name="group_by_is_paid" context="{'group_by': 'is_paid'}"/>
+                    <filter string="Payment Method" name="group_by_payment_method" context="{'group_by': 'payment_method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Food Order Payment Action -->
+    <record id="action_food_order_payment" model="ir.actions.act_window">
+        <field name="name">Payments</field>
+        <field name="res_model">food.order.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_food_order_payment_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No payments found
+            </p>
+            <p>
+                Payments track the amounts owed by each participant in a food order.
+            </p>
+        </field>
+    </record>
+</odoo>

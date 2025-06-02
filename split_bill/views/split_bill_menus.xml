@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Split Bill Main Menu -->
+    <menuitem id="menu_split_bill_root"
+        name="Split Bill"
+        web_icon="split_bill,static/description/icon.png"
+        sequence="100"/>
+    
+    <!-- Split Bill Sub Menus -->
+    <menuitem id="menu_split_bill"
+        name="Split Bills"
+        parent="menu_split_bill_root"
+        action="action_split_bill"
+        sequence="10"/>
+    
+    <menuitem id="menu_split_bill_session"
+        name="Split Sessions"
+        parent="menu_split_bill_root"
+        action="action_split_bill_session"
+        sequence="20"/>
+    
+    <menuitem id="menu_split_bill_participant"
+        name="Participants"
+        parent="menu_split_bill_root"
+        action="action_split_bill_participant"
+        sequence="30"/>
+    
+    <menuitem id="menu_split_bill_item"
+        name="Bill Items"
+        parent="menu_split_bill_root"
+        action="action_split_bill_item"
+        sequence="40"/>
+    
+    <!-- Configuration Menu -->
+    <menuitem id="menu_split_bill_config"
+        name="Configuration"
+        parent="menu_split_bill_root"
+        sequence="100"/>
+</odoo>

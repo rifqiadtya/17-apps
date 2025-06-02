@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_food_order_user,food.order.user,model_food_order,group_simple_split_bill_user,1,1,1,0
+access_food_order_manager,food.order.manager,model_food_order,group_simple_split_bill_manager,1,1,1,1
+access_food_order_line_user,food.order.line.user,model_food_order_line,group_simple_split_bill_user,1,1,1,0
+access_food_order_line_manager,food.order.line.manager,model_food_order_line,group_simple_split_bill_manager,1,1,1,1
+access_food_order_payment_user,food.order.payment.user,model_food_order_payment,group_simple_split_bill_user,1,1,1,0
+access_food_order_payment_manager,food.order.payment.manager,model_food_order_payment,group_simple_split_bill_manager,1,1,1,1
+access_food_order_payment_line_user,food.order.payment.line.user,model_food_order_payment_line,group_simple_split_bill_user,1,1,1,0
+access_food_order_payment_line_manager,food.order.payment.line.manager,model_food_order_payment_line,group_simple_split_bill_manager,1,1,1,1

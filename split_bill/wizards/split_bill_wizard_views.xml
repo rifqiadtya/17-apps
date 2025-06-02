@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Split Bill Wizard Form View -->
+    <record id="view_split_bill_wizard_form" model="ir.ui.view">
+        <field name="name">split.bill.wizard.form</field>
+        <field name="model">split.bill.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Split Bill">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="bill_id" readonly="1"/>
+                            <field name="total_amount" widget="monetary" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="split_method" widget="radio"/>
+                            <field name="delivery_fee_split_method" widget="radio"/>
+                            <field name="discount_split_method" widget="radio"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Participants" name="participants">
+                            <div class="oe_button_box" name="button_box">
+                                <button name="action_add_participant" string="Add Participant" type="object" class="oe_highlight"/>
+                            </div>
+                            <field name="participant_ids">
+                                <tree editable="bottom">
+                                    <field name="partner_id"/>
+                                    <field name="split_percentage" attrs="{'column_invisible': [('parent.split_method', '!=', 'percentage')]}"/>
+                                    <field name="is_payer"/>
+                                    <field name="amount_total" widget="monetary"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Items" name="items" attrs="{'invisible': [('split_method', '!=', 'item')]}">
+                            <field name="item_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit" widget="monetary"/>
+                                    <field name="price_subtotal" widget="monetary"/>
+                                    <field name="price_total" widget="monetary"/>
+                                    <field name="participant_id"/>
+                                    <field name="split_type"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <footer>
+                    <button name="action_apply_split" string="Apply Split" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Add Participant Wizard Form View -->
+    <record id="view_split_bill_add_participant_wizard_form" model="ir.ui.view">
+        <field name="name">split.bill.add.participant.wizard.form</field>
+        <field name="model">split.bill.add.participant.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Participant">
+                <sheet>
+                    <group>
+                        <field name="wizard_id" invisible="1"/>
+                        <field name="partner_id"/>
+                        <field name="split_percentage"/>
+                        <field name="is_payer"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_add" string="Add" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Split Bill Payment Wizard Form View -->
+    <record id="view_split_bill_payment_wizard_form" model="ir.ui.view">
+        <field name="name">split.bill.payment.wizard.form</field>
+        <field name="model">split.bill.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="participant_id" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="bill_id" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="amount_total" readonly="1" widget="monetary"/>
+                            <field name="amount_paid" readonly="1" widget="monetary"/>
+                            <field name="amount_due" readonly="1" widget="monetary"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="amount" widget="monetary"/>
+                            <field name="payment_date"/>
+                        </group>
+                        <group>
+                            <field name="payment_method"/>
+                            <field name="payment_reference"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Add payment notes here..."/>
+                </sheet>
+                <footer>
+                    <button name="action_register_payment" string="Register Payment" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

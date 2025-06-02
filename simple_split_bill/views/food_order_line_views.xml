@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Food Order Line Tree View -->
+    <record id="view_food_order_line_tree" model="ir.ui.view">
+        <field name="name">food.order.line.tree</field>
+        <field name="model">food.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Food Order Lines" decoration-success="is_assigned" decoration-danger="not is_assigned" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="order_id"/>
+                <field name="name"/>
+                <field name="quantity"/>
+                <field name="price_unit" widget="monetary"/>
+                <field name="price_subtotal" sum="Subtotal" widget="monetary"/>
+                <field name="partner_id"/>
+                <field name="is_assigned" widget="boolean_toggle"/>
+                <field name="notes"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Food Order Line Form View -->
+    <record id="view_food_order_line_form" model="ir.ui.view">
+        <field name="name">food.order.line.form</field>
+        <field name="model">food.order.line</field>
+        <field name="arch" type="xml">
+            <form string="Food Order Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="name"/>
+                            <field name="quantity"/>
+                            <field name="price_unit" widget="monetary"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="price_subtotal" widget="monetary"/>
+                            <field name="partner_id"/>
+                            <field name="is_assigned" widget="boolean_toggle"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Food Order Line Search View -->
+    <record id="view_food_order_line_search" model="ir.ui.view">
+        <field name="name">food.order.line.search</field>
+        <field name="model">food.order.line</field>
+        <field name="arch" type="xml">
+            <search string="Food Order Lines">
+                <field name="name"/>
+                <field name="order_id"/>
+                <field name="partner_id"/>
+                <filter string="Assigned" name="assigned" domain="[('is_assigned', '=', True)]"/>
+                <filter string="Unassigned" name="unassigned" domain="[('is_assigned', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Order" name="group_by_order_id" context="{'group_by': 'order_id'}"/>
+                    <filter string="Participant" name="group_by_partner_id" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Food Order Line Action -->
+    <record id="action_food_order_line" model="ir.actions.act_window">
+        <field name="name">Order Lines</field>
+        <field name="res_model">food.order.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_food_order_line_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No order lines found
+            </p>
+            <p>
+                Order lines represent individual food items that can be assigned to participants.
+            </p>
+        </field>
+    </record>
+</odoo>

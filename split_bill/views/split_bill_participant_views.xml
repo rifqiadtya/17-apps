@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Split Bill Participant Tree View -->
+    <record id="view_split_bill_participant_tree" model="ir.ui.view">
+        <field name="name">split.bill.participant.tree</field>
+        <field name="model">split.bill.participant</field>
+        <field name="arch" type="xml">
+            <tree string="Split Bill Participants" decoration-success="payment_status == 'paid'" decoration-info="payment_status == 'partial'" decoration-danger="payment_status == 'unpaid'">
+                <field name="partner_id"/>
+                <field name="bill_id"/>
+                <field name="split_percentage"/>
+                <field name="is_payer"/>
+                <field name="amount_subtotal" sum="Subtotal" widget="monetary"/>
+                <field name="delivery_fee_amount" sum="Delivery Fee" widget="monetary"/>
+                <field name="discount_amount" sum="Discount" widget="monetary"/>
+                <field name="amount_total" sum="Total" widget="monetary"/>
+                <field name="amount_paid" sum="Paid" widget="monetary"/>
+                <field name="amount_due" sum="Due" widget="monetary"/>
+                <field name="payment_status" widget="badge"/>
+                <field name="currency_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Split Bill Participant Form View -->
+    <record id="view_split_bill_participant_form" model="ir.ui.view">
+        <field name="name">split.bill.participant.form</field>
+        <field name="model">split.bill.participant</field>
+        <field name="arch" type="xml">
+            <form string="Split Bill Participant">
+                <header>
+                    <button name="action_register_payment" string="Register Payment" type="object" class="oe_highlight" attrs="{'invisible': [('amount_due', '&lt;=', 0)]}"/>
+                    <button name="action_send_reminder" string="Send Reminder" type="object" attrs="{'invisible': [('amount_due', '&lt;=', 0)]}"/>
+                    <field name="payment_status" widget="statusbar" statusbar_visible="unpaid,partial,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_items" type="object" class="oe_stat_button" icon="fa-list">
+                            <field name="item_count" widget="statinfo" string="Items"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="bill_id"/>
+                            <field name="session_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="split_percentage"/>
+                            <field name="is_payer"/>
+                        </group>
+                    </group>
+                    <group string="Amounts">
+                        <group>
+                            <field name="amount_subtotal" widget="monetary"/>
+                            <field name="delivery_fee_amount" widget="monetary"/>
+                            <field name="discount_amount" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="amount_total" widget="monetary"/>
+                            <field name="amount_paid" widget="monetary"/>
+                            <field name="amount_due" widget="monetary"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items" name="items">
+                            <field name="item_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit" widget="monetary"/>
+                                    <field name="price_subtotal" widget="monetary"/>
+                                    <field name="price_total" widget="monetary"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Payments" name="payments">
+                            <field name="payment_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="amount" widget="monetary"/>
+                                    <field name="payment_method"/>
+                                    <field name="payment_reference"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="currency_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Split Bill Participant Search View -->
+    <record id="view_split_bill_participant_search" model="ir.ui.view">
+        <field name="name">split.bill.participant.search</field>
+        <field name="model">split.bill.participant</field>
+        <field name="arch" type="xml">
+            <search string="Split Bill Participants">
+                <field name="partner_id"/>
+                <field name="bill_id"/>
+                <filter string="Payers" name="payers" domain="[('is_payer', '=', True)]"/>
+                <filter string="Unpaid" name="unpaid" domain="[('payment_status', '=', 'unpaid')]"/>
+                <filter string="Partially Paid" name="partial" domain="[('payment_status', '=', 'partial')]"/>
+                <filter string="Fully Paid" name="paid" domain="[('payment_status', '=', 'paid')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Bill" name="group_by_bill_id" context="{'group_by': 'bill_id'}"/>
+                    <filter string="Session" name="group_by_session_id" context="{'group_by': 'session_id'}"/>
+                    <filter string="Payment Status" name="group_by_payment_status" context="{'group_by': 'payment_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Split Bill Participant Action -->
+    <record id="action_split_bill_participant" model="ir.actions.act_window">
+        <field name="name">Participants</field>
+        <field name="res_model">split.bill.participant</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_split_bill_participant_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No participants found
+            </p>
+            <p>
+                Participants are the people who share the bill.
+            </p>
+        </field>
+    </record>
+</odoo>

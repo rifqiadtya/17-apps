@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Simple Split Bill Main Menu -->
+    <menuitem id="menu_simple_split_bill_root"
+        name="Food Split"
+        web_icon="simple_split_bill,static/description/icon.png"
+        sequence="100"/>
+    
+    <!-- Simple Split Bill Sub Menus -->
+    <menuitem id="menu_food_order"
+        name="Food Orders"
+        parent="menu_simple_split_bill_root"
+        action="action_food_order"
+        sequence="10"/>
+    
+    <menuitem id="menu_food_order_payment"
+        name="Payments"
+        parent="menu_simple_split_bill_root"
+        action="action_food_order_payment"
+        sequence="20"/>
+    
+    <menuitem id="menu_food_order_line"
+        name="Order Lines"
+        parent="menu_simple_split_bill_root"
+        action="action_food_order_line"
+        sequence="30"/>
+    
+    <!-- Configuration Menu -->
+    <menuitem id="menu_simple_split_bill_config"
+        name="Configuration"
+        parent="menu_simple_split_bill_root"
+        sequence="100"/>
+</odoo>
